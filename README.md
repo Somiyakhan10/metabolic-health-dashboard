@@ -162,8 +162,4 @@ NHANES 2017-2018 (8,704 participants)
 - Deploy as clinical API
 
 
-Somiya Khan. (2026). Explainable AI for Personalized Resting Metabolic 
-Rate Prediction Using NHANES 2017-2018 Data. GitHub repository.
-```
-
 
