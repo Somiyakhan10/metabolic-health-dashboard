@@ -1,0 +1,83 @@
+# Configuration for RMR Prediction Project
+# NHANES 2017-2018 cycle
+
+random_seed: 42
+
+nhanes:
+  cycle: "2017-2018"
+  suffix: "J"
+  base_url: "https://wwwn.cdc.gov/nchs/nhanes/2017-2018/"
+  files:
+    DEMO_J: "Demographics"
+    BMX_J: "Body Measurements"
+    BPX_J: "Blood Pressure"
+    #GLU_J: "Fasting Glucose"
+    # GHB_J: "Glycohemoglobin (HbA1c)"        # COMMENTED - You don't have this
+    # HDL_J: "HDL Cholesterol"                 # COMMENTED - You don't have this
+    # TCHOL_J: "Total Cholesterol"             # COMMENTED - You don't have this
+    #TRIGLY_J: "Triglycerides & LDL (includes fasting insulin)"
+    # PAQ_J: "Physical Activity Questionnaire" # COMMENTED - You don't have this
+    # DIQ_J: "Diabetes Questionnaire"          # COMMENTED - You don't have this
+  merge_key: "SEQN"
+
+paths:
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  merged_csv: "data/processed/nhanes_merged_2017_2018.csv"
+  model_dir: "models"
+  figures_dir: "outputs/figures"
+  reports_dir: "outputs/reports"
+
+preprocessing:
+  missing_value_drop_threshold: 0.40
+  outlier_method: "iqr"
+  zscore_threshold: 3.0
+  iqr_multiplier: 1.5
+  correlation_drop_threshold: 0.90
+  vif_threshold: 10.0
+  train_size: 0.70
+  val_size: 0.15
+  test_size: 0.15
+
+feature_engineering:
+  homa_ir:
+    glucose_col: "LBXGLU"
+    insulin_col: "LBXIN"
+    formula: "(glucose_mgdl * insulin_uUmL) / 405"
+  metabolic_syndrome_criteria:
+    waist_cm_male: 102
+    waist_cm_female: 88
+    triglycerides_mgdl: 150
+    hdl_male_mgdl: 40
+    hdl_female_mgdl: 50
+    fasting_glucose_mgdl: 100
+
+models:
+  linear_regression: {}
+  elastic_net:
+    alpha: [0.001, 0.01, 0.1, 1.0, 10.0]
+    l1_ratio: [0.1, 0.3, 0.5, 0.7, 0.9]
+  random_forest:
+    n_estimators: [100, 200, 300]
+    max_depth: [5, 10, 15, null]
+  xgboost:
+    n_estimators: [100, 200, 300]
+    max_depth: [3, 5, 7]
+    learning_rate: [0.01, 0.05, 0.1]
+  lightgbm:
+    n_estimators: [100, 200, 300]
+    num_leaves: [15, 31, 63]
+    learning_rate: [0.01, 0.05, 0.1]
+  catboost:
+    iterations: [200, 400]
+    depth: [4, 6, 8]
+    learning_rate: [0.01, 0.05, 0.1]
+
+cv:
+  n_splits: 5
+  shuffle: true
+
+explainability:
+  shap_sample_size: 500
+  top_n_features: 10
+  pdp_top_n: 5
