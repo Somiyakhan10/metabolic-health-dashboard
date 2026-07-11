@@ -88,43 +88,6 @@ Open your browser to `http://localhost:8501`
 
 ---
 
-## Project Structure
-
-```
-rmr_prediction_project/
-├── dashboard/
-│   └── app.py              # Streamlit dashboard
-├── src/
-│   ├── data_loader.py      # NHANES data loading
-│   ├── feature_engineering.py
-│   ├── preprocess.py
-│   ├── train_models.py
-│   ├── evaluate.py
-│   └── explain.py          # SHAP explainability
-├── models/
-│   └── best_model.pkl
-├── data/
-│   ├── raw/                # NHANES .XPT files
-│   └── processed/
-├── images/                 # Dashboard screenshots
-│   ├── dashboard_main.png
-│   ├── dashboard_rmr.png
-│   ├── dashboard_health.png
-│   ├── dashboard_exercise.png
-│   ├── dashboard_risk.png
-│   └── dashboard_report.png
-├── outputs/
-│   └── figures/            # Generated plots
-├── report/
-│   └── manuscript.md       # Academic manuscript
-├── requirements.txt
-├── config.yaml
-├── run_pipeline.py
-└── README.md
-```
-
----
-
 ## Data Source
 
 NHANES 2017-2018 (8,704 participants)
