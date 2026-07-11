@@ -161,17 +161,7 @@ NHANES 2017-2018 (8,704 participants)
 - Add body composition biomarkers
 - Deploy as clinical API
 
----
 
-## License
-
-MIT License - see [LICENSE](LICENSE)
-
----
-
-## Citation
-
-```
 Somiya Khan. (2026). Explainable AI for Personalized Resting Metabolic 
 Rate Prediction Using NHANES 2017-2018 Data. GitHub repository.
 ```
