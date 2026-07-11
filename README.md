@@ -1,11 +1,7 @@
 # Explainable AI for Personalized Resting Metabolic Rate Prediction
 
-![Python](https://img.shields.io/badge/python-3.10%2B-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
-![Data](https://img.shields.io/badge/data-NHANES%202017--2018-orange)
-
 An explainable machine learning pipeline for predicting Resting Metabolic Rate (RMR) from demographic, anthropometric, laboratory, and behavioral data in the NHANES 2017-2018 cohort.
-
+[![Live Demo](https://img.shields.io/badge/LIVE_DEMO-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://metabolic-health-dashboard.streamlit.app/)
 ---
 
 ## Dashboard Preview
@@ -55,7 +51,7 @@ An explainable machine learning pipeline for predicting Resting Metabolic Rate (
 
 ```bash
 # Clone repository
-git clone <your-repo-url>
+git clone <https://github.com/Somiyakhan10/metabolic-health-dashboard>
 cd rmr_prediction_project
 
 # Create virtual environment
