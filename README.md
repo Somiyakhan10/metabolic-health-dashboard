@@ -176,13 +176,4 @@ Somiya Khan. (2026). Explainable AI for Personalized Resting Metabolic
 Rate Prediction Using NHANES 2017-2018 Data. GitHub repository.
 ```
 
----
-
-## Contact
-
-For collaborations or PhD application inquiries:
-- **GitHub**: [somiyakhan10](https://github.com/somiyakhan10)
-
----
-
 
