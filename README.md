@@ -1,184 +1,188 @@
+# Complete README.md File
+
+Copy this entire file and paste it directly into your `README.md`:
+
+```markdown
 # Explainable AI for Personalized Resting Metabolic Rate Prediction
 
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Status](https://img.shields.io/badge/status-research--prototype-yellow)
 ![Data](https://img.shields.io/badge/data-NHANES%202017--2018-orange)
 
-An explainable machine learning pipeline for predicting Resting Metabolic
-Rate (RMR) from demographic, anthropometric, laboratory, and behavioral
-data in the NHANES 2017–2018 cohort, developed as a portfolio project for
-PhD applications in Exercise Physiology, Metabolism, and Obesity research.
-
-> **⚠️ Data status:** this repository ships fully working, documented code
-> for every pipeline stage. It does **not** ship a pre-downloaded NHANES
-> dataset or pre-trained model, because fetching the raw `.XPT` files
-> requires general internet access that isn't available in the environment
-> this repo was authored in. Run `src/data_loader.py` yourself (see
-> [Installation](#installation)) to populate `data/` and `models/`.
+An explainable machine learning pipeline for predicting Resting Metabolic Rate (RMR) from demographic, anthropometric, laboratory, and behavioral data in the NHANES 2017-2018 cohort.
 
 ---
 
-## Motivation and Clinical Relevance
+## Dashboard Preview
 
-Resting Metabolic Rate (RMR) — energy expended at rest to sustain basic
-physiological function — underlies clinical decisions in weight
-management, metabolic disease, and sports nutrition. Gold-standard
-measurement (indirect calorimetry) is costly and rarely available at
-population scale, so most clinical and research settings rely on
-predictive equations such as Mifflin-St Jeor. This project asks whether a
-richer, ML-based model — trained on a nationally representative sample
-and made interpretable via SHAP — can surface which demographic and
-metabolic factors matter most, and by how much, for individual patients.
+| Main Dashboard | RMR Analysis |
+|----------------|--------------|
+| <img width="1867" height="789" alt="image" src="https://github.com/user-attachments/assets/cdf9fc92-d065-4796-b83a-424affc4ce74" />
+ | ![RMR Analysis](images/dashboard_rmr.png) |
 
-## Dataset
+| Metabolic Health | Exercise Prescription |
+|------------------|----------------------|
+| <img width="1885" height="817" alt="image" src="https://github.com/user-attachments/assets/6364fdce-ff59-4686-af6c-cf579c5f5ff7" />
+ | ![Exercise Prescription](images/dashboard_exercise.png) |
 
-| Component | Description | NHANES file |
-|---|---|---|
-| Demographics | Age, sex | `DEMO_J` |
-| Body measurements | Weight, height, BMI, waist circumference | `BMX_J` |
-| Blood pressure | Systolic/diastolic BP | `BPX_J` |
-| Fasting glucose | Glycemic status | `GLU_J` |
-| HbA1c | Long-term glycemic control | `GHB_J` |
-| HDL cholesterol | Lipid profile | `HDL_J` |
-| Total cholesterol | Lipid profile | `TCHOL_J` |
-| Triglycerides & insulin | Lipid profile, insulin resistance | `TRIGLY_J` |
-| Physical activity | Self-reported activity level | `PAQ_J` |
-| Diabetes questionnaire | Diagnosed diabetes status | `DIQ_J` |
+| Risk Assessment | Clinical Report |
+|-----------------|-----------------|
+| <img width="1377" height="580" alt="image" src="https://github.com/user-attachments/assets/4cdd98c2-5fe9-49b8-8bf9-063e63b66548" />
+ | ![Clinical Report](images/dashboard_report.png) |
 
-Files are merged on `SEQN` (inner join). NHANES does not measure RMR
-directly, so the target is computed from the **Mifflin-St Jeor equation**,
-the most widely validated RMR estimating equation in clinical nutrition:
+---
 
-- **Men:** RMR = 10·weight(kg) + 6.25·height(cm) − 5·age + 5
-- **Women:** RMR = 10·weight(kg) + 6.25·height(cm) − 5·age − 161
+## Quick Overview
 
-This is an explicit modeling choice, not a limitation to hide: the ML
-models are trained to reproduce/refine an equation-based target using a
-much richer feature set than the equation itself uses, and SHAP is used
-to check whether the model is (correctly) leaning almost entirely on
-weight/height/age/sex, or picking up meaningful secondary structure from
-metabolic covariates.
+| Feature | Description |
+|---------|-------------|
+| **RMR Prediction** | Predicts Resting Metabolic Rate using ML models |
+| **Metabolic Health Score** | 0-100 score based on 5 clinical components |
+| **Metabolic Age** | Compares metabolic age to chronological age |
+| **10-Year Risk** | Risk assessment for metabolic syndrome |
+| **Exercise Prescription** | Personalized exercise recommendations |
+| **SHAP Explainability** | Understand why predictions are made |
+| **Clinical Report** | Downloadable healthcare reports |
 
-## Methodology
+---
 
-```mermaid
-flowchart TD
-    A[NHANES 2017-2018 .XPT files] --> B[data_loader.py: download + inner join on SEQN]
-    B --> C[feature_engineering.py: HOMA-IR, WHtR, MetSyn flag, RMR target]
-    C --> D[preprocess.py: impute, outlier removal, encode, correlation/VIF prune]
-    D --> E[70/15/15 stratified split + scaling]
-    E --> F[train_models.py: Linear, ElasticNet, RF, XGBoost, LightGBM, CatBoost]
-    F --> G[evaluate.py: MAE, RMSE, R2, MAPE, learning curves]
-    G --> H[explain.py: SHAP, permutation importance, PDPs]
-    H --> I[dashboard/app.py: Streamlit clinical UI]
-    H --> J[report/manuscript.md: academic write-up]
-```
+## Model Performance
+
+| Model | CV R² |
+|-------|-------|
+| XGBoost | 0.9866 |
+| Random Forest | 0.9706 |
+| CatBoost | 0.96+ |
+| Linear Regression | 0.90 |
+
+---
 
 ## Installation
 
 ```bash
+# Clone repository
 git clone <your-repo-url>
 cd rmr_prediction_project
 
-# Option A: conda
-conda env create -f environment.yml
-conda activate rmr-prediction
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate     # Windows
 
-# Option B: pip
-python -m venv venv && source venv/bin/activate
+# Install dependencies
 pip install -r requirements.txt
 ```
+
+---
 
 ## Usage
 
 ```bash
-# 1. Download + merge NHANES 2017-2018 components (requires internet access)
-python src/data_loader.py --config config.yaml
+# Run the complete pipeline
+python run_pipeline.py
 
-# 2. Run feature engineering + preprocessing + model training via the notebooks,
-#    or programmatically:
-python - <<'PY'
-import yaml, pandas as pd
-from src.feature_engineering import engineer_all_features
-from src.preprocess import run_full_preprocessing
-from src.train_models import train_all_models, select_and_save_best_model
-from src.evaluate import evaluate_all_models
-
-config = yaml.safe_load(open("config.yaml"))
-df = pd.read_csv(config["paths"]["merged_csv"])
-df = engineer_all_features(df, config)
-splits = run_full_preprocessing(df, "RMR_kcal_day", config)
-fitted_models, leaderboard = train_all_models(splits, config)
-select_and_save_best_model(fitted_models, leaderboard, config)
-print(leaderboard)
-print(evaluate_all_models(fitted_models, splits, config))
-PY
-
-# 3. Launch the dashboard
+# Launch the dashboard
 streamlit run dashboard/app.py
 ```
 
-## Results
+Open your browser to `http://localhost:8501`
 
-*Populate this table after running the pipeline on real NHANES data —
-values below are placeholders illustrating the expected reporting format.*
+---
 
-| Model | CV R² (mean ± sd) | Test MAE | Test RMSE | Test R² | Test MAPE |
-|---|---|---|---|---|---|
-| Linear Regression | — | — | — | — | — |
-| Elastic Net | — | — | — | — | — |
-| Random Forest | — | — | — | — | — |
-| XGBoost | — | — | — | — | — |
-| LightGBM | — | — | — | — | — |
-| CatBoost | — | — | — | — | — |
+## Project Structure
 
-## Explainability
+```
+rmr_prediction_project/
+├── dashboard/
+│   └── app.py              # Streamlit dashboard
+├── src/
+│   ├── data_loader.py      # NHANES data loading
+│   ├── feature_engineering.py
+│   ├── preprocess.py
+│   ├── train_models.py
+│   ├── evaluate.py
+│   └── explain.py          # SHAP explainability
+├── models/
+│   └── best_model.pkl
+├── data/
+│   ├── raw/                # NHANES .XPT files
+│   └── processed/
+├── images/                 # Dashboard screenshots
+│   ├── dashboard_main.png
+│   ├── dashboard_rmr.png
+│   ├── dashboard_health.png
+│   ├── dashboard_exercise.png
+│   ├── dashboard_risk.png
+│   └── dashboard_report.png
+├── outputs/
+│   └── figures/            # Generated plots
+├── report/
+│   └── manuscript.md       # Academic manuscript
+├── requirements.txt
+├── config.yaml
+├── run_pipeline.py
+└── README.md
+```
 
-- **SHAP global summary** — ranks features by mean |SHAP value| across the
-  test set.
-- **SHAP waterfall** — per-patient explanation of how each feature pushed
-  the prediction above/below the population baseline.
-- **SHAP dependence + interaction plots** — how a feature's marginal
-  effect changes across its range and with a second feature (e.g. Age × BMI).
-- **Permutation importance** — model-agnostic cross-check against SHAP.
-- **Partial dependence plots** — average marginal effect of top features.
+---
 
-## Dashboard
+## Data Source
 
-`dashboard/app.py` is a Streamlit clinical-style tool: enter patient
-demographics/labs, get a predicted RMR, an approximate prediction
-interval, a BMI-based risk badge, and a SHAP waterfall explaining that
-specific prediction — plus plain-language clinical interpretation notes.
+NHANES 2017-2018 (8,704 participants)
+- Demographics, Body Measurements, Blood Pressure
+- Fasting Glucose, HbA1c, Lipids
+- Physical Activity, Diabetes Status
+
+---
+
+## Key Features
+
+- Multiple ML Models: XGBoost, Random Forest, LightGBM, CatBoost
+- SHAP Explainability: Global and local explanations
+- Physiological Plausibility Checks: Clinically safe predictions
+- Interactive Dashboard: Professional dark theme
+- Clinical Report Generation: Downloadable reports
+
+---
 
 ## Limitations
 
-- The target (RMR) is equation-derived, not directly measured — the model
-  cannot outperform indirect calorimetry as ground truth, only approximate
-  Mifflin-St Jeor with additional covariate context.
-- NHANES is cross-sectional; no causal claims about metabolic drivers of
-  RMR can be made from this data.
-- Self-reported physical activity (PAQ) is subject to recall/social
-  desirability bias.
-- Generalizability is bounded by the 2017-2018 U.S. NHANES sampling frame.
+- RMR target is equation-derived (Mifflin-St Jeor), not directly measured
+- Cross-sectional NHANES data (no causal claims)
+- Self-reported physical activity
+- Limited to U.S. NHANES 2017-2018 sampling frame
+
+---
 
 ## Future Work
 
-- Validate against a cohort with directly measured RMR (indirect
-  calorimetry) to test whether ML predictions outperform Mifflin-St Jeor
-  on *true* RMR, not just on itself.
-- Incorporate additional NHANES cycles for larger sample size and
-  temporal robustness checks.
-- Add body-composition biomarkers (e.g., DXA-derived fat-free mass, when
-  available) as features.
+- Validate against directly measured RMR (indirect calorimetry)
+- Incorporate additional NHANES cycles
+- Add body composition biomarkers
+- Deploy as clinical API
+
+---
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT License - see [LICENSE](LICENSE)
+
+---
 
 ## Citation
 
 ```
-[Your Name]. (2026). Explainable AI for Personalized Resting Metabolic
+Somiya Khan. (2026). Explainable AI for Personalized Resting Metabolic 
 Rate Prediction Using NHANES 2017-2018 Data. GitHub repository.
 ```
+
+---
+
+## Contact
+
+For collaborations or PhD application inquiries:
+- **GitHub**: [somiyakhan10](https://github.com/somiyakhan10)
+
+---
+
+
