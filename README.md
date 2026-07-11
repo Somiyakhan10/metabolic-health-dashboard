@@ -1,8 +1,3 @@
-# Complete README.md File
-
-Copy this entire file and paste it directly into your `README.md`:
-
-```markdown
 # Explainable AI for Personalized Resting Metabolic Rate Prediction
 
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
