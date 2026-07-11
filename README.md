@@ -18,17 +18,16 @@ An explainable machine learning pipeline for predicting Resting Metabolic Rate (
 | Main Dashboard | RMR Analysis |
 |----------------|--------------|
 | <img width="1867" height="789" alt="image" src="https://github.com/user-attachments/assets/cdf9fc92-d065-4796-b83a-424affc4ce74" />
- | ![RMR Analysis](images/dashboard_rmr.png) |
+ 
 
 | Metabolic Health | Exercise Prescription |
 |------------------|----------------------|
 | <img width="1885" height="817" alt="image" src="https://github.com/user-attachments/assets/6364fdce-ff59-4686-af6c-cf579c5f5ff7" />
- | ![Exercise Prescription](images/dashboard_exercise.png) |
+ 
 
 | Risk Assessment | Clinical Report |
 |-----------------|-----------------|
 | <img width="1377" height="580" alt="image" src="https://github.com/user-attachments/assets/4cdd98c2-5fe9-49b8-8bf9-063e63b66548" />
- | ![Clinical Report](images/dashboard_report.png) |
 
 ---
 
