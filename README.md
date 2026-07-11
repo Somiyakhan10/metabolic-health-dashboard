@@ -1,6 +1,7 @@
 # Explainable AI for Personalized Resting Metabolic Rate Prediction
 
 An explainable machine learning pipeline for predicting Resting Metabolic Rate (RMR) from demographic, anthropometric, laboratory, and behavioral data in the NHANES 2017-2018 cohort.
+
 [![Live Demo](https://img.shields.io/badge/LIVE_DEMO-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://metabolic-health-dashboard.streamlit.app/)
 ---
 
