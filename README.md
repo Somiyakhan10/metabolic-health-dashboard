@@ -2,8 +2,14 @@
 
 An explainable machine learning pipeline for predicting Resting Metabolic Rate (RMR) from demographic, anthropometric, laboratory, and behavioral data in the NHANES 2017-2018 cohort.
 
-[![Live Demo](https://img.shields.io/badge/LIVE_DEMO-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://metabolic-health-dashboard.streamlit.app/)
----
+## Live Demo
+
+<p align="center">
+  <a href="https://metabolic-health-dashboard.streamlit.app/">
+    <img src="https://img.shields.io/badge/LIVE_DEMO-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Live Demo">
+  </a>
+</p>
+
 
 ## Dashboard Preview
 
