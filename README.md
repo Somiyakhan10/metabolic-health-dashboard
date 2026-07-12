@@ -18,12 +18,14 @@ An explainable machine learning pipeline for predicting Resting Metabolic Rate (
 
 | Metabolic Health | Exercise Prescription |
 |------------------|----------------------|
-| <img width="1885" height="817" alt="image" src="https://github.com/user-attachments/assets/6364fdce-ff59-4686-af6c-cf579c5f5ff7" />
+| <img width="1331" height="671" alt="image" src="https://github.com/user-attachments/assets/48438407-50e8-40e1-a268-ea5e6ac5543d" />
+
  
 
 | Risk Assessment | Clinical Report |
 |-----------------|-----------------|
-| <img width="1377" height="580" alt="image" src="https://github.com/user-attachments/assets/4cdd98c2-5fe9-49b8-8bf9-063e63b66548" />
+| <img width="984" height="549" alt="image" src="https://github.com/user-attachments/assets/5f65c266-eed9-4cd5-a8c1-235df1bbcfd6" />
+
 
 ---
 
